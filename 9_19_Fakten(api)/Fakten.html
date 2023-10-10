@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div id="traintime"></div>
+<button id="MehrLaden">Weitere Laden</button>
+
+<div>
+
+</div>
+    <script>
+        const traintimeEl = document.getElementById('traintime');
+        const Weitereladen = document.getElementById('MehrLaden');
+
+        const zuge = 0;
+        const URL = 'http://transport.opendata.ch/v1/stationboard?station=Zurich&limit=5';
+        
+        fetch(URL)
+        .then(response => response.json())
+        .then(responseJson =>{
+            
+
+        })
+
+        //MehrLadenTaste.addEvemtlistener('click',() =>{})
+
+
+    </script>
+</body>
+</html
