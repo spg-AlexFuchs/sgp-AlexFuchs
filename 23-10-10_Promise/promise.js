@@ -4,6 +4,6 @@ function ohneFehler(parameter) {
     console.log(parameter, "success");
 }
 function mitfehler(parameter) {
-    console.log(parameter, "FAIL");
+    console.log(parameter,"FAIL");
 }
-x = fetch("httpp://cat-fact.herokuapp.com/facts").then(ohneFehler).then(mitfehler);
+x = fetch("httpp://cat-fact.herokuapp.com/facts").then(ohneFehler).catch(mitfehler);
