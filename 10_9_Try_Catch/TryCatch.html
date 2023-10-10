@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<button onclick="f()">Zufällig Fehler generieren</button>
+
+<body>
+    <script>
+    function f () {
+        const u =0;
+        while(u <10){
+            let rndNmb = Math.round(Math.random() *28 +1);
+            if(rndNmb > 25){
+                throw new Error ("Fehler!");
+                return ergebnis;
+            }
+            u++;
+        }
+    }
+    try {f()}
+
+     catch (error) {console.log(error)}
+    </script>
+</body>
+</html>
