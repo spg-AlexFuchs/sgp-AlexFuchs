@@ -15,7 +15,7 @@ class Person {
         return this.#gross;
     }
     get bmi(){
-        return this.#gewicht / (this.#gross*this.#gross);
+        return Math.round(this.#gewicht / (this.#gross*this.#gross));
     }
     get gewicht(){
         return this.#gewicht;
@@ -29,12 +29,14 @@ class Person {
     }
 
     set gross(grossPar){   //gewicht in kg
-        if(grossPar < 0.2 || grossPar > 10){
+        if(grossPar < 0.5 || grossPar > 3){
             throw new Error("ungültige Größe");
         }
+        //this.#gross =  this.#gross.toFixed(1);
         this.#gross = grossPar;
     }
 
 }
+
 p = new Person('Hans',80,1.8);
 console.log(p.bmi);
