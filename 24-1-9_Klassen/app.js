@@ -38,5 +38,11 @@ class Person {
 
 }
 
-p = new Person('Hans',80,1.8);
-console.log(p.bmi);
+Person1 = new Person('Hans',80,1.8);
+Person2 = new Person('Hans',60,3.4);
+Person3 = new Person('Hans',45,1.5);
+Person4 = new Person('Hans',5,1.0);
+console.log(Person1.bmi);
+console.log(Person2.bmi);
+console.log(Person3.bmi);
+console.log(Person4.bmi);
