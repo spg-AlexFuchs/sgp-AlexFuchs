@@ -1,5 +1,5 @@
 class Person {
-    /*Gewicht in kg, größe in m, */
+    /*Gewicht in kg, größe in m,und Name */
 
     name;
     #gewicht;        //damit private -> # davor hinzufügen
