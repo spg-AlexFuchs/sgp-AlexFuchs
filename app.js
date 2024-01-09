@@ -21,7 +21,7 @@ class Person {
         return this.#gewicht;
     }
 
-    set gewicht(gewichtPar){   //gewicht in kg
+    set gewicht(gewichtPar){   //gewicht in Kg
         if(gewichtPar < 1 || gewichtPar > 500){
             throw new Error("ungültiges Gewicht");
         }
