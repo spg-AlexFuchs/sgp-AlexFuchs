@@ -15,7 +15,7 @@ class Person {
         return this.#gross;
     }
     get bmi(){
-        return Math.round(this.#gewicht / (this.#gross*this.#gross));
+        return (this.#gewicht / (this.#gross*this.#gross)).toFixed(1);
     }
     get gewicht(){
         return this.#gewicht;
