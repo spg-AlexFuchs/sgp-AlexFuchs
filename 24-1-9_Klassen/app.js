@@ -46,3 +46,9 @@ console.log(Person1.bmi);
 console.log(Person2.bmi);
 console.log(Person3.bmi);
 console.log(Person4.bmi);
+
+Personen = [
+    ['Hans', 80, 1.8],
+    ['Peter', 60, 3.4]
+
+]
