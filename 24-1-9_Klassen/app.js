@@ -9,8 +9,8 @@ class Person {
         this.name = name;
         this.gewicht = gewicht;
         this.gross = gross;
-
     }
+
     get gross(){
         return this.#gross;
     }
@@ -22,15 +22,14 @@ class Person {
     }
 
     set gewicht(gewichtPar){   //gewicht in Kg
-        if(gewichtPar < 1 || gewichtPar > 500){
-            throw new Error("ungültiges Gewicht");
+        if(gewichtPar < 10 || gewichtPar > 500){
+            throw new Error("ungueltiges Gewicht");
         }
         this.#gewicht = gewichtPar;
     }
-
     set gross(grossPar){   //gewicht in kg
         if(grossPar < 0.5 || grossPar > 3){
-            throw new Error("ungültige Größe");
+            throw new Error("ungueltige Groeße");
         }
         //this.#gross =  this.#gross.toFixed(1);
         this.#gross = grossPar;
@@ -38,17 +37,7 @@ class Person {
 
 }
 
-Person1 = new Person('Hans',80,1.8);
-Person2 = new Person('Hans',60,3.4);
-Person3 = new Person('Hans',45,1.5);
-Person4 = new Person('Hans',5,1.0);
-console.log(Person1.bmi);
-console.log(Person2.bmi);
-console.log(Person3.bmi);
-console.log(Person4.bmi);
-
-Personen = [
-    ['Hans', 80, 1.8],
-    ['Peter', 60, 3.4]
-
-]
+Person1 = new Person('Hans',80,1.8);console.log(Person1.name,Person1.bmi);
+Person2 = new Person('Peter',60,2.4);console.log(Person2.name,Person2.bmi);
+Person3 = new Person('Meier',45,1.5);console.log(Person3.name,Person3.bmi);
+Person4 = new Person('Drau',5,1.0);console.log(Person4.name,Person4.bmi);
