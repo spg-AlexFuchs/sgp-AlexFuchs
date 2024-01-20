@@ -7,10 +7,12 @@ class Person {
     #name;
     #gewicht;
     #groesse;
-    constructor(namePar, gewichtPar, groessePar) {
-        this.name = namePar;
+    #geschlecht;
+    constructor(gewichtPar, groessePar,geschlechtPar) {
+        this.#name;
         this.gewicht = gewichtPar;
         this.groesse = groessePar;
+        this.#geschlecht = geschlechtPar;
     }
 
     set name(namePar) {
@@ -44,52 +46,47 @@ class Person {
         const nmbr = this.#gewicht / (this.#groesse * this.#groesse);
         return Math.round(nmbr * 10) / 10;
     }
-    toString() {
+
+    set geschlecht(geschlechtPar){
+        this.#geschlecht = geschlechtPar;
+    }
+
+    get beschreibung(){
+        if(this.bmi <=25 && this.bmi >= 20 && this.#geschlecht == 'm'){
+            return ", welcher sich im normalbereich für Männer Befindet";
+        }
+        if(this.bmi >25 && this.#geschlecht == 'm'){
+            return ", welcher sich oberhalb des normalbereiches für Männer Befindet";
+        }
+        if(this.bmi < 20 && this.#geschlecht == 'm'){
+            return ", welcher sich unterhalb des normalbereiches normalbereich für Männer Befindet";
+        }
+        if(this.bmi <=24 && this.bmi >= 19 && this.#geschlecht == 'w'){
+            return ", welcher sich im normalbereich für Frauen Befindet"
+        }
+        if(this.bmi < 19 && this.#geschlecht == 'w'){
+            return ", welcher sich unterhalb des normalbereiches für Frauen Befindet"
+        }
+        if(this.bmi > 24 && this.#geschlecht == 'w'){
+            return ", welcher sich oberhalb des normalbereiches für Frauen Befindet"
+        }
+    }
+    
+    output() {
         return (
-            'Name: ' +
-            this.#name +
-            ' Gewicht: ' +
+            'Bei ' +
             this.#gewicht +
-            ' Größe: ' +
+            'kg und ' +
             this.#groesse +
-            ' BMI: ' +
-            this.bmi
+            'm größe haben sie einen BMI von ' +
+            this.bmi +
+            this.beschreibung
         );
     }
 }
-/*a = [
-    ['Peta', 90, 1.7, 'w'],
-    ['Lisa', 50, 3.5, 'w'], //Wie schaffe ich es, dass hier ein Fehler geworfen wird?
-    ['Roland', 70, 1.7, 'w'],
-    ['Hans', 80, 1.8, 'w'],
-];*/
 
 function BMIBerechnen(){
-BMIPersonen = [
-    ['platzhalter', document.getElementById("Gewicht").value,document.getElementById("Groesse").value,document.getElementById("Geschlecht").innerText ],
-];
-
-PersonenRechner = BMIPersonen.map((arr) => {
-    try {
-        return new Person(...arr);
-    } catch (e) {
-        console.log(e.message);
-        return null;
-    }
-});
-
-
-BMIPerson.forEach((p) => console.log(p + ''));
+    PersonenRechner = new Person(document.getElementById("Gewicht").value,document.getElementById("Groesse").value,document.getElementById("Geschlecht").value);
+    console.log(PersonenRechner.output());
+    document.getElementById("ausgabe").innerHTML = PersonenRechner.output();
 }
-
-/*
-b = a.map((arr) => {
-    try {
-        return new Person(...arr);
-    } catch (e) {
-        console.log(e.message);
-        return null;
-    }
-}); // jetzt ist b ein Personen-Array
-b.forEach((p) => console.log(p + ''));
-*/
