@@ -53,22 +53,22 @@ class Person {
 
     get beschreibung(){
         if(this.bmi <=25 && this.bmi >= 20 && this.#geschlecht == 'm'){
-            return ", welcher sich im normalbereich für Männer Befindet";
+            return ", welcher sich im Normalbereich für Männer befindet.";
         }
         if(this.bmi >25 && this.#geschlecht == 'm'){
-            return ", welcher sich oberhalb des normalbereiches für Männer Befindet";
+            return ", welcher sich oberhalb des Normalbereiches für Männer befindet.";
         }
         if(this.bmi < 20 && this.#geschlecht == 'm'){
-            return ", welcher sich unterhalb des normalbereiches normalbereich für Männer Befindet";
+            return ", welcher sich unterhalb des Normalbereiches für Männer befindet.";
         }
         if(this.bmi <=24 && this.bmi >= 19 && this.#geschlecht == 'w'){
-            return ", welcher sich im normalbereich für Frauen Befindet"
+            return ", welcher sich im Normalbereich für Frauen befindet."
         }
         if(this.bmi < 19 && this.#geschlecht == 'w'){
-            return ", welcher sich unterhalb des normalbereiches für Frauen Befindet"
+            return ", welcher sich unterhalb des Normalbereiches für Frauen befindet."
         }
         if(this.bmi > 24 && this.#geschlecht == 'w'){
-            return ", welcher sich oberhalb des normalbereiches für Frauen Befindet"
+            return ", welcher sich oberhalb des Normalbereiches für Frauen befindet."
         }
     }
     
