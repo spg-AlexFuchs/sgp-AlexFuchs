@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const userCountTarget = 10;
 const trackCountTarget = 30;
-const watchlistCountTarget = 25;
+const watchlistCountTarget = 100;
 const watchlistFillRange = 15;
 async function seed() {
     // create users
