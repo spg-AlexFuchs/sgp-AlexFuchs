@@ -4,16 +4,17 @@ console.log('here is my query:');
 // TODO
 async function query(){
     console.log('querying');
-    let playLists = await prisma.watchlist.findMany({
+    let watchlist = await prisma.watchlist.findMany({
         select:{name:true},
-        where:{benutzerid: (3)},
+        where:{benutzerId: (3)},
     });
 
 
-for(let playlist of playLists){
+for(let playlist of watchlist){
     console.log(playlist.name);
 }
 }
 console.log("\n");
 
-
+query().then(() => {
+    console.log('done')});
