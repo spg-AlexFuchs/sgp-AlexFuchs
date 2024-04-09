@@ -17,4 +17,4 @@ for(let playlist of watchlist){
 console.log("\n");
 
 query().then(() => {
-    console.log('done')});
+    console.log('done abfraging')});
