@@ -18,3 +18,21 @@ console.log("\n");
 
 query().then(() => {
     console.log('done abfraging')});
+
+
+    async function query(){
+        console.log('querying');
+        let benutzer = await prisma.benutzer.findMany({
+            select:{Fullname:true},
+            where:{benutzerId: (3)},//array wo alle benutzer ausgegeben werden, die song xy in playlist haben
+        });
+    
+    
+    for(let playlist of watchlist){
+        console.log(playlist.name);
+    }
+    }
+    console.log("\n");
+    
+    query().then(() => {
+        console.log('done abfraging')});

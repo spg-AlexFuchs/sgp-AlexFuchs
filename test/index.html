@@ -7,19 +7,30 @@
 </head>
 <body>
     <input type="text" id="eingabe">
-    <button onclick="los()">Station suchen</button>
+    <button onclick="suche()">Station suchen</button>
+    <br><br>
+    <ol id="liste">
+        <li>zeile1</li>
+      </ol> 
     <script>
-        
+        const station = ["Wien Mitte", "Wien Hbf"];
+        const kuerzel = ["Hz","Wbf"];
+        function suche(){
+            //console.log(text);
+            //console.log(station.indexOf("Mitte"));
+            //console.log(kuerzel[station.indexOf(document.getElementById("eingabe").value)]);
+            var ausgabetext = station[station.indexOf(document.getElementById("eingabe").value)];
+            var ausgabe = `<li> ${ausgabetext} </li>`;
+            document.getElementById("liste").innerHTML += ausgabe;
 
-        function los(){
-            let text = document.getElementById("eingabe").value;
-            if(text == "Wien Mitte"){
-                open("https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=departure&staticLayout=true&stationId=" + "Hz");
-                //window.open = 'https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=departure&staticLayout=true&stationId=' + text;
-            }
-            else{
-                console.log("Fehler bei Stationsnamen:");
-            }
+            //überprüfen ob eingabe stimmt & partielle suche aus stationssliste & liste zum auswählen der station
+
+            los(kuerzel[station.indexOf(document.getElementById("eingabe").value)]);
+        }
+        
+        function los(stk){
+            window.open("https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=departure&staticLayout=true&stationId=" + stk);
+            //window.open = 'https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=departure&staticLayout=true&stationId=' + text;
         }
     </script>
 </body>
