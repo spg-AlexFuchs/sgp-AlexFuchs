@@ -2097,8 +2097,29 @@
             //document.getElementById("liste").innerHTML += ausgabe;
 
             //überprüfen ob eingabe stimmt & partielle suche aus stationssliste & liste zum auswählen der station
-
-            los(kuerzel[station.indexOf(document.getElementById("eingabe").value)]);
+            if(station.indexOf(document.getElementById("eingabe").value) != -1){
+                los(kuerzel[station.indexOf(document.getElementById("eingabe").value)]);
+            }
+            else{
+                let i =0;
+                while(i < station.length){
+                    const geteiltanleer = station[i].split(" ");
+                    let z=0;
+                    //console.log(geteiltanleer.length);
+                    while(z<geteiltanleer.length){
+                        //console.log(geteiltanleer[z]);
+                        if(geteiltanleer[z] == document.getElementById("eingabe").value){
+                            console.log(station[i]);
+                        }
+                        z++;
+                    }
+                    //console.log(geteiltanleer);
+                    //if (geteiltanleer == document.getElementById("eingabe").value){
+                    //    console.log(station[i]);
+                    //}
+                    i++;
+                }
+            }
         }
         
         function los(stk){
