@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Station Info</title>
 </head>
 <body>
-    
-    <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
-    </label>
-    <br>
-    <input type="text" id="eingabe">
-    <button onclick="suche()">Station suchen</button> 
+  <div class="departure" id="departure">Departure Board</div>
+  <div class="DiscriptionLine">
+    <div class="InputChild">
+      <div class="InnestChild">Ankunft/Abfahrt</div>
+      <div class="InnestChild"><select name="Anzeige" id="AnkunftOderAbfahrt" onchange="Wechsel()">
+        <option value="departure">Abfahrt</option>
+        <option value="arrival">Ankunft</option>
+      </select></div>
+    </div>
+    <div class="InputChild">
+      <div class="InnestChild">Stationsnamen</div>
+      <div class="InnestChild"><input type="text" id="eingabe"></div>
+    </div>
+    <div class="InputChild">
+      <div class="InnestChild">Suche starten</div>
+      <div class="InnestChild"><button onclick="suche()">Station suchen</button></div>
+    </div>
+  </div>
+
     <br>
     <p id="Ergebnisse"></p>
 
@@ -2100,8 +2111,20 @@
 'Sbk H1',
 'Zu'
 ];
-        function suche(){
+        
+        function Wechsel(){
+          console.log(document.getElementById("departure"));
+          if(document.getElementById("AnkunftOderAbfahrt").value == "arrival"){
+            document.getElementById("departure").innerHTML = `<div class="arrival" id="arrival">Arrival Board</div>`
+          }
+          else{
+            document.getElementById("arrival").innerHTML = `<div class="departure" id="departure">Departure Board</div>`
+          }
+        }
+
+        function suche(){//farben hintergrund: #1e007d & text: #ff0 & hintergrundakzent: #2938b9
             document.getElementById("Ergebnisse").innerHTML = "";
+
             if(station.indexOf(document.getElementById("eingabe").value) != -1){
                 los(station.indexOf(document.getElementById("eingabe").value));
             }
@@ -2126,69 +2149,45 @@
         
         function los(stz){
             let kurz = kuerzel[stz];
-            window.location.assign("https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=departure&staticLayout=true&stationId=" + kurz);
+            let AnkunftOderAbfahrt = document.getElementById("AnkunftOderAbfahrt").value;
+
+            window.location.assign(`https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=${AnkunftOderAbfahrt}&staticLayout=true&stationId=${kurz}`);
         }
     </script>
 
-<style>
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
+  <style>
+    body{
+      background-color: #1e007d;
+      font-family:Roboto,Helvetica Neue,sans-serif;
+      color:#fff;
     }
-    
-    .switch input { 
-      opacity: 0;
-      width: 0;
-      height: 0;
+    .departure{
+      text-align: center;
+      color:#ff0;
+      font-family:Arial,Helvetica,sans-serif;
+      background-color:#1e007d;
+      font-size:4.3vw
     }
-    
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
+    .arrival{
+      text-align: center;
+      color:#fff;
+      font-family:Arial,Helvetica,sans-serif;
+      background-color:#0f2f1f;
+      font-size:4.3vw
     }
-    
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
+    .DiscriptionLine{
+      padding: 20px;
+      font-size:1.757vw;
     }
-    
-    input:checked + .slider {
-      background-color: #2196F3;
+    .InputChild{
+      width: 300px;
+      float: left;
+      padding: 0px;
+      font-size:1.757vw;
     }
-    
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
-    
-    input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
-    }
-    
-    /* Rounded sliders */
-    .slider.round {
-      border-radius: 34px;
-    }
-    
-    .slider.round:before {
-      border-radius: 50%;
+    .InnestChild{
+      padding-inline: 10px;
+      font-size:1.757vw;
     }
     </style>
 </body>
