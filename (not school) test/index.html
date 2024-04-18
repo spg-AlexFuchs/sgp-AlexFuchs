@@ -2139,7 +2139,6 @@
                     while(z<geteiltanleer.length){
                         if(geteiltanleer[z] == document.getElementById("eingabe").value){
                             let r = c%2;
-                            console.log(c%2);
                             document.getElementById("Ergebnisse").innerHTML += `<li onclick="los(${i})">`+ station[i] + `</li>`;
                             c++;
                         }
@@ -2169,10 +2168,10 @@
       font-family:Roboto,Helvetica Neue,sans-serif;
       color:#fff;
     }
-    .departurebody li:nth-child(even) {
+    .departurebody li:nth-child(odd) {
       background-color: #2938b9;
     }
-    .arrivalbody li:nth-child(even) {
+    .arrivalbody li:nth-child(odd) {
       background-color: #104528;
     }
     .departure{
