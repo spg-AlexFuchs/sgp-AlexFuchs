@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Station Info</title>
 </head>
-<body>
+<body class="departurebody" id="body">
   <div class="departure" id="departure">Departure Board</div>
   <div class="DiscriptionLine">
     <div class="InputChild">
@@ -2113,12 +2113,13 @@
 ];
         
         function Wechsel(){
-          console.log(document.getElementById("departure"));
           if(document.getElementById("AnkunftOderAbfahrt").value == "arrival"){
-            document.getElementById("departure").innerHTML = `<div class="arrival" id="arrival">Arrival Board</div>`
+            document.getElementById("departure").innerHTML = `<div class="arrival" id="arrival">Arrival Board</div>`;
+            document.getElementById("body").className = "arrivalbody";
           }
           else{
-            document.getElementById("arrival").innerHTML = `<div class="departure" id="departure">Departure Board</div>`
+            document.getElementById("arrival").innerHTML = `<div class="departure" id="departure">Departure Board</div>`;
+            document.getElementById("body").className = "departurebody";
           }
         }
 
@@ -2156,7 +2157,12 @@
     </script>
 
   <style>
-    body{
+    .arrivalbody{
+      background-color: #0f2f1f;
+      font-family:Roboto,Helvetica Neue,sans-serif;
+      color:#fff;
+    }
+    .departurebody{
       background-color: #1e007d;
       font-family:Roboto,Helvetica Neue,sans-serif;
       color:#fff;
