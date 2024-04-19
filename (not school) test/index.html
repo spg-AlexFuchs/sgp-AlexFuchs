@@ -23,6 +23,13 @@
       <div class="InnestChild">Suche starten</div>
       <div class="InnestChild"><button onclick="suche()">Station suchen</button></div>
     </div>
+    <div class="InputChild">
+      <div class="InnestChild">Verion</div>
+      <div class="InnestChild"><select name="Version" id="Version">
+        <option value="new">Neue Version</option>
+        <option value="old">Alte Version</option>
+      </select></div>
+    </div>
   </div>
 
     <br><br><br>
@@ -30,6 +37,9 @@
     </ul>
 
     <script>
+        const AllStations = ['Strozzigasse (Alle)','Erlaaer Straße','Thaliastraße (Alle)'];
+        const AllKuerzel = ['908014','1392371','1391663'];
+
         const station = ['Abfaltersbach',
 'Absdorf - Hippersdorf',
 'Achau',
@@ -2125,28 +2135,56 @@
         }
 
         function suche(){
+          console.log(document.getElementById("Version").value);
+          if(document.getElementById("Version").value == "new")
+          {
             document.getElementById("Ergebnisse").innerHTML = "";
 
             if(station.indexOf(document.getElementById("eingabe").value) != -1){
                 los(station.indexOf(document.getElementById("eingabe").value));
             }
             else{
-                let i =0;
-                let c =0;
-                while(i < station.length){
-                    const geteiltanleer = station[i].split(" ");
-                    let z=0;
-                    while(z<geteiltanleer.length){
-                        if(geteiltanleer[z] == document.getElementById("eingabe").value){
-                            let r = c%2;
-                            document.getElementById("Ergebnisse").innerHTML += `<li onclick="los(${i})">`+ station[i] + `</li>`;
-                            c++;
-                        }
-                        z++;
-                    }
-                    i++;
-                }
+              let i =0;
+              let c =0;
+              while(i < station.length){
+                  const geteiltanleer = station[i].split(" ");
+                  let z=0;
+                  while(z<geteiltanleer.length){
+                      if(geteiltanleer[z] == document.getElementById("eingabe").value){
+                        let r = c%2;
+                        document.getElementById("Ergebnisse").innerHTML += `<li onclick="los(${i})">`+ station[i] + `</li>`;
+                        c++;
+                      }
+                    z++;
+                  }
+                i++;
+              }
             }
+          }
+          else{
+            document.getElementById("Ergebnisse").innerHTML = "";
+
+            if(station.indexOf(document.getElementById("eingabe").value) != -1){
+              losalt(station.indexOf(document.getElementById("eingabe").value));
+            }
+            else{
+              let i =0;
+              let c =0;
+              while(i < AllStations.length){
+                  const geteiltanleer = AllStations[i].split(" ");
+                  let z=0;
+                  while(z<geteiltanleer.length){
+                      if(geteiltanleer[z] == document.getElementById("eingabe").value){
+                        let r = c%2;
+                        document.getElementById("Ergebnisse").innerHTML += `<li onclick="losalt(${i})">`+ AllStations[i] + `</li>`;
+                        c++;
+                      }
+                    z++;
+                  }
+                i++;
+              }
+            }
+          }
         }
         
         function los(stz){
@@ -2154,6 +2192,18 @@
             let AnkunftOderAbfahrt = document.getElementById("AnkunftOderAbfahrt").value;
 
             window.location.assign(`https://meine.oebb.at/abfahrtankunft/webdisplay/#/?contentType=${AnkunftOderAbfahrt}&staticLayout=true&stationId=${kurz}`);
+        }
+
+        function losalt(stz){
+          let ziel = "";
+          if(document.getElementById("AnkunftOderAbfahrt").value == "arrival"){
+            ziel = "arr";
+          }
+          else{
+            ziel = "dep";
+          }
+          let kurz = AllKuerzel[stz];
+          window.location.assign(`https://fahrplan.oebb.at/bin/stboard.exe/dn?L=vs_scotty.vs_liveticker&evaId=${kurz}&boardType=${ziel}&productsFilter=1011111111011&dirInput=&tickerID=dep&start=yes&eqstops=true&showJourneys=20&additionalTime=0`);
         }
     </script>
 
