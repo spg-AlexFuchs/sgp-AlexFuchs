@@ -19,15 +19,17 @@ async function seedZoo() {
 seedZoo();
 
 async function seedDepartment() {
-    for (let i = 0; i < gewunscht; i++) {
-        for(let z = 0; z <= 6; z++) 
+    let d = 0;
+    for (let i = 0; i <= gewunscht; i++) {
+        for(let z = 0; z <= 7; z++) 
         {   
             const abteilungen= {
                 name: fakerDE.animal.type(),
-                zooID: i,
+                zooID: ,
             };
             await prisma.abteilung.create({ data: abteilungen }); 
         }
+        d++;
     }
 }
 
