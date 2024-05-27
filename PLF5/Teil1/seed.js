@@ -5,10 +5,7 @@ let gewunscht = 5;
 
 
 
-async function seed() {
-    let i = 0;
-
-/*
+async function seedZoo() {
     for (let i = 1; i <= gewunscht; i++) {
         const zoo= {
             land: fakerDE.location.country(),
@@ -18,22 +15,23 @@ async function seed() {
         };
         await prisma.zoo.create({ data: zoo });
     }
-*/
+}
+seedZoo();
+
+async function seedDepartment() {
     for (let i = 0; i < gewunscht; i++) {
         for(let z = 0; z <= 6; z++) 
         {   
             const abteilungen= {
                 name: fakerDE.animal.type(),
-                zooID: z
+                zooID: i,
             };
             await prisma.abteilung.create({ data: abteilungen }); 
         }
     }
 }
-seed();
 
-
-
+seedDepartment();
 
     /*for (let i = 0; i < gewunscht; i++) {
         zoo = [
