@@ -2,6 +2,11 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { fakerDE } = require('@faker-js/faker');
 let gewunscht = 5;
+let minAbteilung = 2;
+let maxAbteilung = 7;
+let Worker = 100;
+let minWorkplace =1;
+let maxWorkplace = 4;
 
 
 
@@ -16,42 +21,44 @@ async function seedZoo() {
         await prisma.zoo.create({ data: zoo });
     }
 }
-seedZoo();
 
 async function seedDepartment() {
-    let d = 0;
-    for (let i = 0; i <= gewunscht; i++) {
-        for(let z = 0; z <= 7; z++) 
+    let zooids = await prisma.zoo.findMany({select: { id: true }});
+    for (let i of zooids) {
+        for(let z = 0; z <= Math.floor(Math.random() * maxAbteilung) + minAbteilung; z++) 
         {   
-            const abteilungen= {
+            const abteilung= {
                 name: fakerDE.animal.type(),
-                zooID: ,
+                zooID: i.id,
             };
-            await prisma.abteilung.create({ data: abteilungen }); 
+            await prisma.abteilung.create({ data: abteilung }); 
         }
-        d++;
     }
 }
 
-seedDepartment();
+async function seedWorker() {
+    let Abteilungids = await prisma.abteilung.findMany({select: { id: true }});
+    for (let i = 1; i <= Worker; i++) {
+        for(let z = 1; z <= Math.floor(Math.random() * maxWorkplace) + minWorkplace; z++) 
+        {   
+            const Mitarbeitender= {
+                name: fakerDE.person.firstName(),
+                abteilungen:  Abteilungids[Math.floor(Math.random() * Abteilungids.length)].id,
+            };
+            await prisma.mitarbeiter.create({ data: Mitarbeitender }); 
+        }
+    }
+}
 
-    /*for (let i = 0; i < gewunscht; i++) {
-        zoo = [
-            { land: fakerDE.location.country(), },
-            { stadt: fakerDE.location.city(), },
-            { adresse: fakerDE.location.streetAddress(), },
-            { baujahr: fakerDE.date.past(), },
-            {
-                abteilungen: {
-                    create: 'Burgerfische'
-                }
-            }
+async function main(){
+    console.log("start seeding");
+    await seedZoo().then((rw) => console.log('seeding done: ', rw))
+    .catch((e) => console.log('Es gab Fehler', e.message));;
+    await seedDepartment().then((rw) => console.log('seeding done: ', rw))
+    .catch((e) => console.log('Es gab Fehler', e.message));;
+    await seedWorker().then((rw) => console.log('seeding done: ', rw))
+    .catch((e) => console.log('Es gab Fehler', e.message));;
+    console.log("stop seeding");
+}
 
-        ];
-
-        const createMany = prisma.zoo.create({ data: zoo[i] });
-    };
-    */
-
-
-//console.log(zoo[0]);
+main();

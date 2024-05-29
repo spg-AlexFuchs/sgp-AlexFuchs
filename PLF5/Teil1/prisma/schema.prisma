@@ -35,5 +35,6 @@ model Tier {
 model Mitarbeiter {
   id          Int         @id @default(autoincrement())
   name        String
-  abteilungen Abteilung[]
+  abteilungen Abteilung @relation(fields: [abteilungenids], references: [id])
+  abteilungenids Int
 }
