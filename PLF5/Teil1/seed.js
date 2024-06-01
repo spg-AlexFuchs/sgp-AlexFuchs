@@ -54,23 +54,59 @@ async function seedAnimal() {
 async function seedWorker() {
     let abteilungIDS = await prisma.abteilung.findMany({select: {id: true}});
     for (let i = 1; i <= Worker; i++) {
-        const Mitarbeitender= {
-            name: fakerDE.person.firstName(),
-        }
-        await prisma.mitarbeiter.create({ data: Mitarbeitender}); 
-        for(let z = 1; z <= Math.floor(Math.random() * maxWorkplace) + minWorkplace; z++) 
-        {   
-            let WorkerIDS = await prisma.mitarbeiter.findMany({select: {id: true}});
-            await prisma.mitarbeiter.update({
-                data: {
-                    abteilungen: {
-                        id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id
-                    },
-                },
-                where: {
-                    id: abteilungIDS[i-1].id
+        let Abteilungszahl = fakerDE.number.int({min:1, max:4})
+        if(Abteilungszahl == 4){
+            let Mitarbeitender= {
+                name: fakerDE.person.firstName(),
+                abteilungen: {
+                    connect: [
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                    ]
                 }
-            }); 
+            }
+            await prisma.mitarbeiter.create({ data: Mitarbeitender});
+        }
+        else if(Abteilungszahl == 3){
+            let Mitarbeitender= {
+                name: fakerDE.person.firstName(),
+                abteilungen: {
+                    connect: [
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                    ]
+                }
+            }
+            await prisma.mitarbeiter.create({ data: Mitarbeitender});
+        }
+        else if(Abteilungszahl == 2){
+            let Mitarbeitender= {
+                name: fakerDE.person.firstName(),
+                abteilungen: {
+                    connect: [
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                    ]
+                }
+            }
+            await prisma.mitarbeiter.create({ data: Mitarbeitender});
+        }
+        else if(Abteilungszahl == 1){
+            let Mitarbeitender= {
+                name: fakerDE.person.firstName(),
+                abteilungen: {
+                    connect: [
+                        {id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id},
+                    ]
+                }
+            }
+            await prisma.mitarbeiter.create({ data: Mitarbeitender});
+        }
+        else{
+            console.log("EERRRORRR")
         }
     }
 }
@@ -84,6 +120,8 @@ async function main(){
     await seedDepartment().then((rw) => console.log('seeding done: ', rw))
     .catch((e) => console.log('Es gab Fehler', e.message));;
     await seedAnimal().then((rw) => console.log('seeding done: ', rw))
+    .catch((e) => console.log('Es gab Fehler', e.message));;
+    await seedWorker().then((rw) => console.log('seeding done: ', rw))
     .catch((e) => console.log('Es gab Fehler', e.message));;
     console.log("stop seeding");
 }
