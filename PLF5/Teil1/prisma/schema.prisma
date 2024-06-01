@@ -8,33 +8,34 @@ generator client {
 }
 
 model Zoo {
-  id          Int         @id @default(autoincrement())
-  land        String
-  stadt       String
-  adresse     String
-  baujahr     Int
-  abteilungen Abteilung[]
+  id            Int           @id @default(autoincrement())
+  land          String
+  stadt         String
+  adresse       String
+  baujahr       Int
+  abteilungen   Abteilung[]
 }
 
 model Abteilung {
-  id          Int           @id @default(autoincrement())
-  name        String
-  mitarbeiter Mitarbeiter[]
-  tiere       Tier[]
-  zoo         Zoo           @relation(fields: [zooID], references: [id])
-  zooID       Int
+  id            Int           @id @default(autoincrement())
+  name          String
+  mitarbeiter   Mitarbeiter[]
+  tiere         Tier[]
+  zoo           Zoo           @relation(fields: [zooID], references: [id])
+  zooID         Int
 }
 
 model Tier {
-  id        Int         @id @default(autoincrement())
-  name      String
-  art       String
-  abteilung Abteilung[]
+  id            Int           @id @default(autoincrement())
+  name          String
+  art           String
+  abteilung     Abteilung     @relation(fields: [abteilungIDS], references: [id])
+  abteilungIDS  Int
+
 }
 
 model Mitarbeiter {
-  id          Int         @id @default(autoincrement())
-  name        String
-  abteilungen Abteilung @relation(fields: [abteilungenids], references: [id])
-  abteilungenids Int
+  id            Int           @id @default(autoincrement())
+  name          String
+  abteilungen   Abteilung[]   
 }

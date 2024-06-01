@@ -36,19 +36,46 @@ async function seedDepartment() {
     }
 }
 
-async function seedWorker() {
-    let Abteilungids = await prisma.abteilung.findMany({select: { id: true }});
-    for (let i = 1; i <= Worker; i++) {
-        for(let z = 1; z <= Math.floor(Math.random() * maxWorkplace) + minWorkplace; z++) 
+async function seedAnimal() {
+    let abteilungIDS = await prisma.abteilung.findMany({select: { id: true }});
+    for (let i of abteilungIDS) {
+        for(let z = 0; z <= Math.floor(Math.random() * 20) + 5; z++) 
         {   
-            const Mitarbeitender= {
-                name: fakerDE.person.firstName(),
-                abteilungen:  Abteilungids[Math.floor(Math.random() * Abteilungids.length)].id,
+            const tier= {
+                name: fakerDE.animal.fish(),
+                art: fakerDE.animal.type(),
+                abteilungIDS: i.id,
             };
-            await prisma.mitarbeiter.create({ data: Mitarbeitender }); 
+            await prisma.tier.create({ data: tier }); 
         }
     }
 }
+
+async function seedWorker() {
+    let abteilungIDS = await prisma.abteilung.findMany({select: {id: true}});
+    for (let i = 1; i <= Worker; i++) {
+        const Mitarbeitender= {
+            name: fakerDE.person.firstName(),
+        }
+        await prisma.mitarbeiter.create({ data: Mitarbeitender}); 
+        for(let z = 1; z <= Math.floor(Math.random() * maxWorkplace) + minWorkplace; z++) 
+        {   
+            let WorkerIDS = await prisma.mitarbeiter.findMany({select: {id: true}});
+            await prisma.mitarbeiter.update({
+                data: {
+                    abteilungen: {
+                        id: abteilungIDS[Math.floor(Math.random() * abteilungIDS.length)].id
+                    },
+                },
+                where: {
+                    id: abteilungIDS[i-1].id
+                }
+            }); 
+        }
+    }
+}
+    
+
 
 async function main(){
     console.log("start seeding");
@@ -56,7 +83,7 @@ async function main(){
     .catch((e) => console.log('Es gab Fehler', e.message));;
     await seedDepartment().then((rw) => console.log('seeding done: ', rw))
     .catch((e) => console.log('Es gab Fehler', e.message));;
-    await seedWorker().then((rw) => console.log('seeding done: ', rw))
+    await seedAnimal().then((rw) => console.log('seeding done: ', rw))
     .catch((e) => console.log('Es gab Fehler', e.message));;
     console.log("stop seeding");
 }
