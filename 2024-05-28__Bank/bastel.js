@@ -72,11 +72,8 @@ async function seed(){
                 kontostand: randomKontostand2.kontostand-ueberweisungsbetrag,
             }
         })
-
         await prisma.transactions.create({data: transaktion});
     }
-
-
 }
 
 seed();
