@@ -10,37 +10,38 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Banks{
-  id  Int   @id @default(autoincrement())
-  bic String
+model Banks {
+  id       Int        @id @default(autoincrement())
+  bic      String
   accounts Accounts[]
 }
 
-model Customers{
-  id  Int @id @default(autoincrement())
-  name  String
-  email String
-  account Accounts? @relation(fields: [accountID], references: [id])
+model Customers {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String
+  account   Accounts? @relation(fields: [accountID], references: [id])
   accountID Int?
 }
 
-model Accounts{
-  id  Int @id @default(autoincrement())
-  iban String
+model Accounts {
+  id        Int            @id @default(autoincrement())
+  iban      String
   customers Customers[]
-  bank Banks  @relation(fields: [bankID], references: [id])
-  bankID Int
+  bank      Banks          @relation(fields: [bankID], references: [id])
+  bankID    Int
+  kontostand Float
   givemoney Transactions[] @relation("Giver")
-  getmoney Transactions[] @relation("Getter")
+  getmoney  Transactions[] @relation("Getter")
 }
 
-model Transactions{
-  id  Int @id @default(autoincrement())
+model Transactions {
+  id               Int      @id @default(autoincrement())
   verwendungszweck String
-  date  DateTime
-  amount Float
-  fromAcc Accounts @relation("Giver",fields: [fromAccID], references: [id])
-  fromAccID Int
-  toAcc Accounts @relation("Getter",fields: [toAccID], references: [id])
-  toAccID Int
+  date             DateTime
+  amount           Float
+  fromAcc          Accounts @relation("Giver", fields: [fromAccID], references: [id])
+  fromAccID        Int
+  toAcc            Accounts @relation("Getter", fields: [toAccID], references: [id])
+  toAccID          Int
 }
