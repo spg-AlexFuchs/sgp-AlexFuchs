@@ -20,10 +20,11 @@ async function seed(){
     
     for(d=0;d<GEWUENSCHTE_ACCOUNTS; d++){
         let randomBank = await prisma.banks.findMany({select: {id:true}})
+        let randomKontostand = parseFloat((Math.floor(Math.random() * 20000)+0.01).toFixed(2));
         const account={
             iban: fakerDE.finance.iban(),
             bankID: randomBank[Math.floor(Math.random() * randomBank.length)].id,
-            kontostand: parseFloat(fakerDE.finance.amount()),
+            kontostand: randomKontostand,
         }
         await prisma.accounts.create({data:account});
     }
@@ -52,7 +53,7 @@ async function seed(){
             select: {kontostand: true},
             where: {id: randomAccount2},
         }); 
-        let ueberweisungsbetrag = parseFloat(Math.floor(Math.random() * randomKontostand.kontostand))
+        let ueberweisungsbetrag = parseFloat((Math.floor(Math.random() * randomKontostand.kontostand)+0.01).toFixed(2));
         const transaktion={
             verwendungszweck: fakerDE.finance.transactionDescription(),
             date: fakerDE.date.recent(),
@@ -60,6 +61,7 @@ async function seed(){
             fromAccID: randomAccount,
             toAccID: randomAccount2,
         }
+        await prisma.transactions.create({data: transaktion});
         await prisma.accounts.update({
             where: {id: randomAccount},
             data: {
@@ -69,10 +71,9 @@ async function seed(){
         await prisma.accounts.update({
             where: {id: randomAccount2},
             data: {
-                kontostand: randomKontostand2.kontostand-ueberweisungsbetrag,
+                kontostand: randomKontostand2.kontostand+ueberweisungsbetrag,
             }
         })
-        await prisma.transactions.create({data: transaktion});
     }
 }
 
