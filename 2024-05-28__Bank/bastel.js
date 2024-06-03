@@ -4,7 +4,7 @@ const { fakerDE } = require('@faker-js/faker');
 
 let GEWUENSCHTE_BANKEN = 10;
 let GEWUENSCHTE_CUSTOMERS = 60;
-let GEWUENSCHTE_ACCOUNTS = 25;
+let GEWUENSCHTE_ACCOUNTS = 50;
 let GEWUENSCHTE_TRANSAKTIONEN = 50;
 
 async function seed(){
@@ -32,12 +32,35 @@ async function seed(){
     console.log("seeding customers...");
     for(d=0; d<GEWUENSCHTE_CUSTOMERS; d++){
         let randomAccount = await prisma.accounts.findMany({select: {id:true}})
+        let randomdurchlaeufe = Math.floor(Math.random() * 10); 
+        let accountID = randomAccount[Math.floor(Math.random() * randomAccount.length)].id;
         const customer ={
             name: fakerDE.person.fullName(),
             email: fakerDE.internet.email(),
-            accountID: randomAccount[Math.floor(Math.random() * randomAccount.length)].id
+            account: {
+                connect:[
+                    {id: accountID},
+                ]
+            }
         }
         await prisma.customers.create({data: customer});
+        let customerZahl = await prisma.customers.findMany({});
+        let id = await prisma.customers.findUnique({
+            select: {id: true},
+            where: {id: customerZahl.length}
+        })
+        for(i=0;i<randomdurchlaeufe;i++){
+            await prisma.customers.update({
+                where: {id: id.id},
+                    data:{
+                    account: {
+                        connect:[
+                            {id: randomAccount[Math.floor(Math.random() * randomAccount.length)].id},
+                        ]
+                    }
+                }
+            })
+        }
     }
 
     console.log("seeding transactions...");

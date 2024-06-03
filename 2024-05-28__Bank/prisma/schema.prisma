@@ -20,8 +20,7 @@ model Customers {
   id        Int       @id @default(autoincrement())
   name      String
   email     String
-  account   Accounts @relation(fields: [accountID], references: [id])
-  accountID Int
+  account   Accounts[]
 }
 
 model Accounts {
