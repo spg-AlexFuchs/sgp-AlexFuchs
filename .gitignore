@@ -3,3 +3,4 @@ node_modules
 PLF5/Teil1/prisma/dev.sqlite3
 .env
 client
+deno.lock
