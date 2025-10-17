@@ -1,0 +1,42 @@
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js" // Dies ist korrekt, auch für TypeScript!
+    output   = "client"
+    runtime  = "deno" // Dies stellt sicher, dass der Client Deno-kompatibel ist
+}
+
+model Song {
+    id      String   @id @default(cuid())
+    name    String
+    album   Album    @relation(name: "SongAlbum", fields: [albumId], references: [id])
+    albumId String
+    artists Artist[] @relation(name: "SongArtists")
+    dauer   Int
+    genre   Genre    @relation(fields: [genreId], references: [id])
+    genreId String
+}
+
+model Artist {
+    id     String  @id @default(cuid())
+    name   String
+    songs  Song[]  @relation(name: "SongArtists")
+    albums Album[] @relation(name: "AlbumArtists")
+}
+
+model Album {
+    id           String   @id @default(cuid())
+    album_name   String
+    release_year Int
+    artists      Artist[] @relation(name: "AlbumArtists")
+    songs        Song[]   @relation(name: "SongAlbum")
+}
+
+model Genre {
+    id         String @id @default(cuid())
+    genre_name String
+    songs      Song[]
+}
