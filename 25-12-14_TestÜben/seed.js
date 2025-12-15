@@ -68,15 +68,16 @@ main()
 /*
 TO-DO:
 
+- Prisma version prüfen (muss 4):       npx prisma -v
 - Prisma deinstallieren im Terminal:    npm uninstall prisma @prisma/client
 - Prisma version 4 Installieren:        npm install prisma@4 @prisma/client@4
 - FakerDE installieren:                 npm install @faker-js/faker
 - Prisma Initialisieren:                npx prisma init
-- Prisma Generieren:                    npx prisma generate dev
 --------------------------------------------------------------------------------
-- Prisma provider ändern:               provider = "sqlite"
-- Prisma url Ändern:                    url      = "file:./dev.db"
+- Prisma (Schema) provider ändern:      provider = "sqlite"
+- Prisma (Schema )url Ändern:           url      = "file:./dev.db"
 - Prisma Schema validieren:             npx prisma validate
+- Prisma Generieren:                    npx prisma generate dev (immer nach letzter änderung)
 - Prisma Datenbank Erstellen:           npx prisma db push
 - Seed.js Datei ausführen:              node seed.js
 - Prisma Studio Ausführen:              npx prisma studio
