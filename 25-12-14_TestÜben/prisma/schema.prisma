@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Flug {
+  id          String      @id @default(cuid())
+  Abflugzeit  DateTime
+  Abflugort   String
+  Ankunftzeit DateTime
+  Ankunftort  String
+  Flugname    String
+  passagiere  Passagier[]
+}
+
+model Passagier {
+  id      String   @id @default(cuid())
+  name    String
+  Fluege  Flug[]
+  Gepaeck Gepaeck[]   // 1 Passagier → viele Gepäckstücke
+}
+
+model Gepaeck {
+  id           String     @id @default(cuid())
+  gewicht      Float
+  beschreibung String
+  passagierId  String
+  passagier    Passagier @relation(fields: [passagierId], references: [id])
+}
