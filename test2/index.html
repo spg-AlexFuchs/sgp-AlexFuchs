@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body >
+    <h1>Eingabe</h1>
+    <p>Name: <input id="name" type="text" /></p>
+    <p>Alter: <input id="alter" type="text" /></p>
+    <p>Stadt: <input id="stadt" type="text" /></p>
+
+    <button onclick="Hinzufugen()">➕ Hinzufügen</button>
+    <button onclick="Laden()">▶️ Laden</button>
+    <button onclick="Speichern()">💾 Speichern</button>
+    <button onclick="Sorteiren()">🔀 Sorteiren</button>
+
+    <h2>Daten:</h2>
+    <table  id="tabelle">
+        <tr>
+            <th>Name</th>
+            <th>Alter</th>
+            <th>Stadt</th>
+        </tr>
+    </table>
+
+</body>
+</html>

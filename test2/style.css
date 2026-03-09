@@ -1,0 +1,15 @@
+body {
+    background-color: #3b6606;
+    width: 875px;
+    font-family: Arial, Roboto, sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+    margin: auto;
+    background-image: url('wallpaper.jpg');
+}
+table, th, td {
+    border: 3px solid #00ff15;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: left;
+}
